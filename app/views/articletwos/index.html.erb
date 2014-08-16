@@ -1,0 +1,23 @@
+<h1>Static Configurable Parameters</h1>
+
+<table>
+   <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th colspan="2"></th>
+   </tr>
+
+   <% @articletwos.each do |article| %>
+        <tr>
+            <td><%= article.key %></td>
+            <td><%= article.value %></td>
+            <td><%= link_to 'Show', articletwo_path(article)%></td>
+            <td><%= link_to 'Edit', edit_articletwo_path(article)%></td>
+            <td><%= link_to 'Destroy', articletwo_path(article),method: :delete, data: {confirm: 'Are you sure?'} %></td>  
+        </tr>
+   <% end %>
+</table>
+
+<%= link_to 'Dynamic Parameters', articles_path %>
+<%= link_to 'Add new staic parameter', new_articletwo_path %>
+

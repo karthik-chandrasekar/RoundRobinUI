@@ -1,0 +1,31 @@
+<h1>Add  New Config Parameter</h1>
+
+<%= form_tag(articles_path, method: "post") do %>
+
+    <br>
+    <%= radio_button_tag(:country, "UnitedStates") %>
+    <%= label_tag(:country_unitedstates, "UnitedStates") %>
+    <%= radio_button_tag(:country, "India") %>
+    <%= label_tag(:country_india, "India") %>
+    <%= radio_button_tag(:country, "China") %>
+    <%= label_tag(:country_china, "China")%>
+
+    
+    <br>
+    <%= radio_button_tag(:resourcename, "sscaria") %>
+    <%= label_tag(:resourcename, "Subhash Scaria") %>
+    <%= radio_button_tag(:resourcename, "nimathur") %>
+    <%= label_tag(:resourcename, "Nitin Matur") %>
+
+
+    <br>
+    <%= check_box_tag(:hadoop) %>
+    <%= label_tag(:hadoop, "Hadoop") %>
+    <%= check_box_tag(:teradata) %>
+    <%= label_tag(:teradata, "Teradata") %>
+    
+    <%= submit_tag("Submit") %>
+
+
+<%end%>
+<%= link_to 'Back', articles_path%>
