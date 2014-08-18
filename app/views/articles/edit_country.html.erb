@@ -1,0 +1,12 @@
+<h1>Editing country</h1>
+
+<%= form_for :articles, url: articles_update_country_path(@country), method: :get do |f| %>
+    <p>
+        <%= f.label :Country %><br>
+        <%= f.text_area :countryname %>
+    </p>
+
+    <p>
+        <%= f.submit "Save" %>
+    </p>
+<%end%>

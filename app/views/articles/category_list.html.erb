@@ -1,0 +1,18 @@
+<h1>List of category</h1>
+
+<table>
+    <tr>
+        <th>CategoryName</th>
+    </tr>
+
+    <% @category_list.each do |category| %>
+        <tr>
+            <td><%= category.categoryname %></td>
+        </tr>
+    <% end %>
+
+</table>
+
+
+<%= link_to 'Back', articles_path %>
+

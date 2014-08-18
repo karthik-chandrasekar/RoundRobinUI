@@ -2,30 +2,33 @@
 
 <%= form_tag(articles_path, method: "post") do %>
 
-    <br>
-    <%= radio_button_tag(:country, "UnitedStates") %>
-    <%= label_tag(:country_unitedstates, "UnitedStates") %>
-    <%= radio_button_tag(:country, "India") %>
-    <%= label_tag(:country_india, "India") %>
-    <%= radio_button_tag(:country, "China") %>
-    <%= label_tag(:country_china, "China")%>
+    <br/>
+   
+    <% @country_list.each do |country| %>
+        <%= radio_button_tag(:country, country.countryname) %>
+        <%= label_tag(:country, country.countryname) %>
+        <%= link_to 'Edit', articles_edit_country_path(country) %><br/>
+    <% end %>
 
-    
-    <br>
-    <%= radio_button_tag(:resourcename, "sscaria") %>
-    <%= label_tag(:resourcename, "Subhash Scaria") %>
-    <%= radio_button_tag(:resourcename, "nimathur") %>
-    <%= label_tag(:resourcename, "Nitin Matur") %>
+ 
+    <br/><br/><br/>
+    <% @resource_list.each do |resource| %>
+        <%= radio_button_tag(:resourcename, resource.resourcename) %>
+        <%= label_tag(:resourcename, resource.resourcename) %><br/>
+    <% end %>    
 
-
-    <br>
-    <%= check_box_tag(:hadoop) %>
-    <%= label_tag(:hadoop, "Hadoop") %>
-    <%= check_box_tag(:teradata) %>
-    <%= label_tag(:teradata, "Teradata") %>
-    
+   
+    <br/><br/><br/>
+    <% @category_list.each do |category| %>
+        <%= check_box_tag(category.categoryname, value = category.categoryname) %>
+        <%= label_tag(:category, category.categoryname) %><br/>
+    <% end %>
+ 
     <%= submit_tag("Submit") %>
-
 
 <%end%>
 <%= link_to 'Back', articles_path%>
+<%= link_to 'Add Country', articles_country_path%>
+<%= link_to 'Add Resource', articles_resource_path%>
+<%= link_to 'Add Category', articles_category_path%>
+

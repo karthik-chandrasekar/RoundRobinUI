@@ -1,0 +1,18 @@
+<h1>List of resources</h1>
+
+<table>
+    <tr>
+        <th>ResourceName</th>
+    </tr>
+
+    <% @resource_list.each do |resource| %>
+        <tr>
+            <td><%= resource.resourcename %></td>
+        </tr>
+    <% end %>
+
+</table>
+
+
+<%= link_to 'Back', articles_path %>
+

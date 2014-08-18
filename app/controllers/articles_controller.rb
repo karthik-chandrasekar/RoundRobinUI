@@ -1,5 +1,11 @@
 class ArticlesController < ApplicationController
 
+    def new
+        @country_list = Country.all
+        @resource_list = Resource.all
+        @category_list = Category.all
+    end
+
     def show
       @article = Article.find(params[:id])
     end
@@ -17,12 +23,15 @@ class ArticlesController < ApplicationController
 
       save_params['title'] = text
 
-      category = ['hadoop', 'teradata']
+      @category = Category.all
+      categoryList = Array.new
+      @category.each do |category|
+        categoryList.push(category.categoryname)             
+      end 
       new_category = []        
 
-      category_val = ''
-      for a_cat in category
-        if params.has_key?(a_cat)
+      for a_cat in categoryList
+        if params.has_value?(a_cat)
             new_category.push(a_cat)
         end
       end        
@@ -36,6 +45,8 @@ class ArticlesController < ApplicationController
       puts @article      
 
       @article.save
+
+
       redirect_to @article
     end
 
@@ -71,7 +82,6 @@ class ArticlesController < ApplicationController
       category = ['hadoop', 'teradata']
       new_category = []        
 
-      category_val = ''
       for a_cat in category
         if params.has_key?(a_cat)
             new_category.push(a_cat)
@@ -96,5 +106,55 @@ class ArticlesController < ApplicationController
      
       redirect_to articles_path
     end
-        
+
+    def country
+    end
+
+    def country_list
+        #Add a country
+        country_hash = Hash.new 
+        input_hash = params['articles'] 
+        country_hash['countryname'] = input_hash['title']
+        @country = Country.new(country_hash)
+        @country.save
+        @country_list = Country.all
+    end
+
+
+    def resource
+    end
+
+    def resource_list
+        #Add a resource
+        resource_hash = Hash.new 
+        input_hash = params['articles'] 
+        resource_hash['resourcename'] = input_hash['title']
+        @resource = Resource.new(resource_hash)
+        @resource.save
+        @resource_list = Resource.all
+    end
+    
+    def category
+    end
+   
+    def category_list
+        #Add a category
+        category_hash = Hash.new 
+        input_hash = params['articles'] 
+        category_hash['categoryname'] = input_hash['title']
+        @category = Category.new(category_hash)
+        @category.save
+        @category_list = Category.all
+    end
+
+    def edit_country
+        puts params
+        @country = Country.find(params[:format])
+    end
+
+    def udpate_country
+        @country = Country.find(params[:format]) 
+                   
+    end
+ 
 end

@@ -1,0 +1,17 @@
+<h1>List of countries</h1>
+
+<table>
+    <tr>
+        <th>CountryName</th>
+    </tr>
+
+    <% @country_list.each do |country| %>
+        <tr>
+            <td><%= country.countryname %></td>
+        </tr>
+    <% end %>
+
+</table>
+
+
+<%= link_to 'Back', articles_path %>
