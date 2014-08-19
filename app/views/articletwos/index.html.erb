@@ -1,4 +1,4 @@
-<h1>Static Configurable Parameters</h1>
+<h1 align="center">Generic TicketAllocator  Parameters</h1>
 
 <table>
    <tr>
@@ -13,11 +13,11 @@
             <td><%= article.value %></td>
             <td><%= link_to 'Show', articletwo_path(article)%></td>
             <td><%= link_to 'Edit', edit_articletwo_path(article)%></td>
-            <td><%= link_to 'Destroy', articletwo_path(article),method: :delete, data: {confirm: 'Are you sure?'} %></td>  
+            <td><%= link_to 'Delete', articletwo_path(article),method: :delete, data: {confirm: 'Are you sure?'} %></td>  
         </tr>
    <% end %>
 </table>
 
-<%= link_to 'Dynamic Parameters', articles_path %>
-<%= link_to 'Add new staic parameter', new_articletwo_path %>
+<br/><%= link_to 'View Resource-Category Parameters', articles_path %>
+<br/><%= link_to 'Add new generic parameter', new_articletwo_path %>
 

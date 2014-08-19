@@ -1,0 +1,19 @@
+<h1>Available Resource  Parameter</h1>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Text</th>
+    </tr>
+    <% @availresource.each do |availresource| %>
+        <tr>
+            <td><%= availresource.key %></td>
+            <td><%= availresource.value %></td>
+            <td><%= link_to 'Delete', articles_delete_availresource_path(availresource), method: :get, data: {confirm: "Are you sure?"}%></td>
+        </tr>
+    <% end %>
+</table>
+
+<%= link_to 'Back', articles_path %>
+<%= link_to 'Add AvailResource', articles_new_availresource_path %>
+

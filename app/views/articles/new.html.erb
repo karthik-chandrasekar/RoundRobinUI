@@ -1,34 +1,38 @@
-<h1>Add  New Config Parameter</h1>
+<h1 align='center'>Add New Resource-Category Parameter</h1>
 
 <%= form_tag(articles_path, method: "post") do %>
 
     <br/>
-   
+    <h3>Countries</h3> 
     <% @country_list.each do |country| %>
         <%= radio_button_tag(:country, country.countryname) %>
         <%= label_tag(:country, country.countryname) %>
-        <%= link_to 'Edit', articles_edit_country_path(country) %><br/>
+        <%= link_to 'Delete', articles_delete_country_path(country), data: {confirm: 'Are you sure?'}%><br/>
     <% end %>
 
  
-    <br/><br/><br/>
+    <br/>
+    <h3>Resources</h3>
     <% @resource_list.each do |resource| %>
         <%= radio_button_tag(:resourcename, resource.resourcename) %>
-        <%= label_tag(:resourcename, resource.resourcename) %><br/>
+        <%= label_tag(:resourcename, resource.resourcename) %>
+        <%= link_to 'Delete', articles_delete_resource_path(resource), data: {confirm: 'Are you sure?'}%><br/>
     <% end %>    
 
    
-    <br/><br/><br/>
+    <br/>
+    <h3>Categories</h3>
     <% @category_list.each do |category| %>
         <%= check_box_tag(category.categoryname, value = category.categoryname) %>
-        <%= label_tag(:category, category.categoryname) %><br/>
-    <% end %>
+        <%= label_tag(:category, category.categoryname) %>
+        <%= link_to 'Delete', articles_delete_category_path(category), data: {confirm: 'Are you sure?'}%><br/>
+    <% end %><br/>
  
     <%= submit_tag("Submit") %>
 
 <%end%>
-<%= link_to 'Back', articles_path%>
-<%= link_to 'Add Country', articles_country_path%>
-<%= link_to 'Add Resource', articles_resource_path%>
-<%= link_to 'Add Category', articles_category_path%>
+<br/><%= link_to 'Back', articles_path%>
+<br/><%= link_to 'Add Country', articles_country_path%>
+<br/><%= link_to 'Add Resource', articles_resource_path%>
+<br/><%= link_to 'Add Category', articles_category_path%>
 

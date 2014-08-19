@@ -57,16 +57,31 @@ class ArticlesController < ApplicationController
        @my_val2 = @article.title.split('-')
        @my_val.concat(@my_val2)
 
-       @us = @my_val.include?'UnitedStates'
-       @india = @my_val.include?'India'
-       @china = @my_val.include?'China'
-     
-       @sscaria = @my_val.include?'sscaria' 
-       @nimathur = @my_val.include?'nimathur'
+       @country = Country.all
+       @country_hash = Hash.new
        
-       @hadoop = @my_val.include?'hadoop'
-       @teradata = @my_val.include?'teradata'
+       @country.each do |country|
+        cname = country.countryname
+        @country_hash[cname] = @my_val.include?cname
+       end
+
+        
+       @resource  = Resource.all
+       @resource_hash = Hash.new
+        
+       @resource.each do |resource|
+        rname = resource.resourcename
+        @resource_hash[rname] = @my_val.include?rname
+       end 
        
+       @category = Category.all
+       @category_hash = Hash.new
+
+       @category.each do |category|  
+        catname = category.categoryname
+        @category_hash[catname] = @my_val.include?catname
+       end        
+
     end
        
     def update
@@ -79,19 +94,20 @@ class ArticlesController < ApplicationController
 
       save_params['title'] = text
 
-      category = ['hadoop', 'teradata']
+      @category = Category.all
+      category_list = Array.new
+      @category.each do |category|
+        category_list.push(category.categoryname)        
+      end  
       new_category = []        
 
-      for a_cat in category
+      for a_cat in category_list
         if params.has_key?(a_cat)
             new_category.push(a_cat)
         end
       end        
             
       save_params['text'] = new_category.join('|')     
-
-      puts save_params
-         
 
       if @article.update(save_params)
         redirect_to @article
@@ -107,10 +123,29 @@ class ArticlesController < ApplicationController
       redirect_to articles_path
     end
 
-    def country
+    def delete_country
+        @country = Country.find(params[:format])
+        @country.destroy
+        
+        redirect_to new_article_path
     end
 
-    def country_list
+
+    def delete_resource
+        @resource = Resource.find(params[:format])
+        @resource.destroy
+
+        redirect_to new_article_path
+    end
+
+    def delete_category
+        @category = Category.find(params[:format])
+        @category.destroy
+
+        redirect_to new_article_path
+    end
+
+    def add_country
         #Add a country
         country_hash = Hash.new 
         input_hash = params['articles'] 
@@ -120,11 +155,18 @@ class ArticlesController < ApplicationController
         @country_list = Country.all
     end
 
+    def country
+    end
+
+    def country_list
+        #Add a country
+        @country_list = Country.all
+    end
 
     def resource
     end
 
-    def resource_list
+    def add_resource
         #Add a resource
         resource_hash = Hash.new 
         input_hash = params['articles'] 
@@ -132,12 +174,18 @@ class ArticlesController < ApplicationController
         @resource = Resource.new(resource_hash)
         @resource.save
         @resource_list = Resource.all
+
+        redirect_to articles_resource_list_path
+    end
+
+    def resource_list
+        @resource_list = Resource.all
     end
     
     def category
     end
-   
-    def category_list
+  
+    def add_category
         #Add a category
         category_hash = Hash.new 
         input_hash = params['articles'] 
@@ -145,16 +193,65 @@ class ArticlesController < ApplicationController
         @category = Category.new(category_hash)
         @category.save
         @category_list = Category.all
+        
+        redirect_to articles_category_list_path
+    end
+ 
+    def category_list
+        @category_list = Category.all
     end
 
     def edit_country
         puts params
         @country = Country.find(params[:format])
-    end
+        @countryname = @country.countryname
+     end
 
     def udpate_country
         @country = Country.find(params[:format]) 
                    
     end
- 
+
+    def edit_resource
+        @resource = Resource.find(params[:format])
+        
+    end
+
+    def show_availresource
+        @availresource = AvailResource.all
+    end
+
+    def new_availresource
+        @availKeys = ['INDIAExceptionHandler', 'CHINAExceptionHandler', 'USAExceptionHandler', 'UnAvailableResources']
+        @resource = Resource.all        
+
+    end
+    
+    def add_availresource
+        params_hash = Hash.new
+        params_hash['key'] = params[:title]
+
+        @resource = Resource.all
+        selected_resource = []
+        
+        @resource.each do |resource|
+            if params.has_key?(resource.resourcename)
+                selected_resource.push(resource.resourcename)
+            end
+        end
+
+        params_hash['value'] = selected_resource.join('|')
+        puts params_hash
+        @availresource = AvailResource.new(params_hash)
+        @availresource.save
+
+        redirect_to articles_show_availresource_path
+    end 
+
+    def delete_availresource
+        @resource = AvailResource.find(params[:format])
+        @resource.destroy
+
+        redirect_to articles_show_availresource_path
+    end
 end

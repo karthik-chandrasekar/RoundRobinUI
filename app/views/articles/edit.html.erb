@@ -1,32 +1,27 @@
-<h1>Editing Config Parameter</h1>
+<h1 align="center">Editing Resource-Category Parameter</h1>
  
  <%= form_for :article, url: article_path(@article), method: :patch do |f| %>
 
    <br/> 
-   
-   <%= radio_button_tag 'country', 'UnitedStates', @us %>
-   <%= label_tag 'UnitedStates'%>
+  
+   <%= @country_hash.each do |key,value| %> 
+    <%= radio_button_tag 'country', key, value %>
+    <%= label_tag key %><br/>
+   <% end %> 
 
-   <%= radio_button_tag 'country', 'India', @india %>
-   <%= label_tag 'India'%>
-
-   <%= radio_button_tag 'country', 'China', @china %>
-   <%= label_tag 'China'%>
      
    <br/>
-   <%= radio_button_tag 'resourcename', 'sscaria', @sscaria %>
-   <%= label_tag 'Subash Scaria' %>
+   <%= @resource_hash.each do |key,value| %>
+    <%= radio_button_tag 'resourcename', key, value %>
+    <%= label_tag key %><br/>
+   <% end %>
 
-   <%= radio_button_tag 'resourcename', 'nimathur', @nimathur %>
-   <%= label_tag 'Nitin Mathur' %>
+   <br/>  
+   <%= @category_hash.each do |key,value| %> 
+    <%= check_box_tag key, key, value %> 
+    <%= label_tag key %><br/>
+   <% end %> 
 
-   <br/>
-   <%= check_box_tag 'hadoop', 'hadoop', @hadoop %> 
-   <%= label_tag 'Hadoop' %>
-
-   <%= check_box_tag 'teradata', 'teradata', @teradata %>
-   <%= label_tag 'Teradata' %>
- 
    <p>
     <%=f.submit "Save" %>
    </p>   

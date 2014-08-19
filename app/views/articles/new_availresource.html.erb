@@ -1,0 +1,19 @@
+<h1 align='center'>Add New AvailResource Parameter</h1>
+
+<%= form_tag(articles_add_availresource_path, method: "get") do %>
+ <br/>
+ <h3>Title</h3>
+ <% @availKeys.each do |availkey| %>
+    <%= radio_button_tag(:title, availkey) %>
+    <%= label_tag(:title, availkey) %><br/>
+ <% end %>   
+
+ <br/>
+ <h3>Resources</h3>
+ <%@resource.each do |resource| %>
+    <%= check_box_tag(resource.resourcename, value= resource.resourcename) %>
+    <%= label_tag(:resource, resource.resourcename) %><br/>
+ <% end %>  
+ <%= submit_tag("Submit") %>   
+    
+<% end %>
